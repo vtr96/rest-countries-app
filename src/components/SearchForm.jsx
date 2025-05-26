@@ -10,7 +10,7 @@ export function SearchForm({ onSearch }) {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} style={{ marginBottom: '1rem' }}>
 			<input
-				placeholder="Enter country or region"
+				placeholder="Enter country name or region (e.g., Europe)"
 				{...register('query', {
 					required: 'This field is required',
 					validate: value => value.trim().length > 0 || 'Cannot be empty or spaces only'

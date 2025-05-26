@@ -8,9 +8,21 @@ function App() {
 
     const handleSearch = async (query) => {
         dispatch({ type: 'FETCH_START' });
+
+        const regions = ['africa', 'americas', 'asia', 'europe', 'oceania'];
+        const formattedQuery = query.trim().toLocaleLowerCase();
+
+        let url = '';
+
+        if (regions.includes(formattedQuery)) {
+            url = `https://restcountries.com/v3.1/region/${formattedQuery}`;
+        } else {
+            url = `https://restcountries.com/v3.1/name/${formattedQuery}`;
+        }
+
         try {
-            const response = await fetch(`https://restcountries.com/v3.1/name/${query}`);
-            if (!response.ok) throw new Error('Country not found');
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('No countries found');
             const data = await response.json();
             dispatch({ type: 'FETCH_SUCCESS', payload: data });
         } catch (err) {
@@ -19,7 +31,14 @@ function App() {
     };
 
     return (
-        <div style={{ maxWidth: '600px', margin: '2rem auto', fontFamily: 'Arial, sans-serif' }}>
+        <div style={{
+            maxWidth: '600px',
+            margin: '2rem auto',
+            fontFamily: 'Arial, sans-serif',
+            background: 'linear-gradient(135deg, #f8f9fa, #e9ecef)',
+            padding: '2rem',
+            borderRadius: '8px'
+        }}>
             <h1>Country Search</h1>
             <SearchForm onSearch={handleSearch} />
 
