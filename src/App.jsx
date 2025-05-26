@@ -2,6 +2,7 @@ import './App.css';
 import { useReducer } from 'react';
 import { countryReducer, initialState } from './contexts/countryReducer';
 import { SearchForm } from './components/SearchForm';
+import { CountryList } from './components/CountryList';
 
 function App() {
   const [state, dispatch] = useReducer(countryReducer, initialState);
@@ -26,11 +27,7 @@ function App() {
         {state.loading && <p>Loading...</p>}
         {state.error && <p>Error: {state.error}</p>}
 
-        <ul>
-          {state.data.map((country) => (
-              <li key={country.cca3}>{country.name.common}</li>
-          ))}
-        </ul>
+        <CountryList countries={state.data} />
       </div>
   );
 }
