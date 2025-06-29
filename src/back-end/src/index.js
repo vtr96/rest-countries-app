@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authRoutes = require('./src/back-end/src/routes/authRoutes');
+const authRoutes = require('./routes/authRoutes');
+
 
 const app = express();
 
@@ -15,8 +16,8 @@ mongoose.connect('mongodb://localhost:27017/seubanco', {
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', authRoutes);
+app.use('/auth', authRoutes);
 
 app.listen(3000, () => {
-  console.log('🚀 Servidor rodando na porta 3000');
+  console.log('Servidor rodando na porta 3000');
 });
