@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
 
 const conectarAoBanco = async () => {
   try {
-    await mongoose.connect(process.env.DB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    const uri = process.env.MONGO_URI;
+    if (!uri) throw new Error('MONGO_URI está vazio!');
+
+    await mongoose.connect(uri);
     console.log('Conectado ao MongoDB');
   } catch (erro) {
     console.error('Erro ao conectar no MongoDB:', erro.message);
-    process.exit(1);
   }
 };
 

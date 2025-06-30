@@ -5,9 +5,9 @@ require('dotenv').config();
 
 const criarUsuario = async () => {
   try {
-    console.log('DB URI:', process.env.DB_URI);
-    await mongoose.connect(process.env.DB_URI);
-    console.log('DB URI:', process.env.DB_URI);
+    console.log('DB URI:', process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('DB URI:', process.env.MONGO_URI);
 
     const usuario = new User({
       email: 'admin',
