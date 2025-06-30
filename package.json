@@ -23,7 +23,9 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "loader": { ".js": "jsx" },
+  "loader": {
+    ".js": "jsx"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
