@@ -4,12 +4,19 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 const authMiddleware = require('../middleware/authMiddleware');
-
 const router = express.Router();
+require('dotenv').config()
 
-//Login
+// Login
 router.post('/login', async (req, res) => {
   const { email, senha } = req.body;
+
+  if (!email || typeof email !== 'string') {
+    return res.status(400).json({ mensagem: 'Email é obrigatório e deve ser uma string.' });
+  }
+  if (!senha || typeof senha !== 'string' || senha.length < 6) {
+    return res.status(400).json({ mensagem: 'Senha é obrigatória e deve ter pelo menos 6 caracteres.' });
+  }
 
   try {
     const usuario = await User.findOne({ email });
@@ -35,31 +42,33 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Registro
 router.post('/register', async (req, res) => {
-  console.log('Requisição para /register recebida:', req.body);
   const { email, senha } = req.body;
+
+  if (!email || typeof email !== 'string') {
+    return res.status(400).json({ mensagem: 'Email é obrigatório e deve ser uma string.' });
+  }
+  if (!senha || typeof senha !== 'string' || senha.length < 6) {
+    return res.status(400).json({ mensagem: 'Senha é obrigatória e deve ter pelo menos 6 caracteres.' });
+  }
+
   try {
     const hashed = await bcrypt.hash(senha, 10);
     const novoUser = new User({ email, senha: hashed });
     await novoUser.save();
     res.status(201).json({ mensagem: 'Usuário criado com sucesso!' });
   } catch (erro) {
-    console.error('Erro detalhado ao criar usuário:', erro);
+    console.error('Erro ao criar usuário:', erro);
     if (erro.code === 11000) {
-      return res.status(400).json({
-        mensagem: 'Erro ao criar usuário',
-        erro: 'Email já cadastrado'
-      });
+      return res.status(400).json({ mensagem: 'Email já cadastrado' });
     }
-    res.status(500).json({ 
+    res.status(500).json({
       mensagem: 'Erro ao criar usuário',
-      erro: erro.message || erro.toString(),
-      detalhes: erro.errors || null
+      erro: erro.message || erro.toString()
     });
   }
 });
-
-
 
 //Buscar usuário individual por ID
 router.get('/users/:id', authMiddleware, async (req, res) => {
@@ -93,3 +102,4 @@ router.get('/users', authMiddleware, async (req, res) => {
 });
 
 module.exports = router;
+

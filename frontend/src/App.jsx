@@ -1,34 +1,34 @@
-import { useReducer } from 'react';
-import { countryReducer, initialState } from './contexts/countryReducer';
-import { SearchForm } from './components/SearchForm';
-import { CountryList } from './components/CountryList';
+import { useReducer } from 'react'
+import { countryReducer, initialState } from './contexts/countryReducer'
+import { SearchForm } from './components/SearchForm'
+import { CountryList } from './components/CountryList'
 
 function App() {
-    const [state, dispatch] = useReducer(countryReducer, initialState);
+    const [state, dispatch] = useReducer(countryReducer, initialState)
 
     const handleSearch = async (query) => {
-        dispatch({ type: 'FETCH_START' });
+        dispatch({ type: 'FETCH_START' })
 
-        const regions = ['africa', 'americas', 'asia', 'europe', 'oceania'];
-        const formattedQuery = query.trim().toLocaleLowerCase();
+        const regions = ['africa', 'americas', 'asia', 'europe', 'oceania']
+        const formattedQuery = query.trim().toLocaleLowerCase()
 
-        let url = '';
+        let url = ''
 
         if (regions.includes(formattedQuery)) {
-            url = `https://restcountries.com/v3.1/region/${formattedQuery}`;
+            url = `https://restcountries.com/v3.1/region/${formattedQuery}`
         } else {
-            url = `https://restcountries.com/v3.1/name/${formattedQuery}`;
+            url = `https://restcountries.com/v3.1/name/${formattedQuery}`
         }
 
         try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('No countries found');
-            const data = await response.json();
-            dispatch({ type: 'FETCH_SUCCESS', payload: data });
+            const response = await fetch(url)
+            if (!response.ok) throw new Error('No countries found')
+            const data = await response.json()
+            dispatch({ type: 'FETCH_SUCCESS', payload: data })
         } catch (err) {
-            dispatch({ type: 'FETCH_ERROR', payload: err.message });
+            dispatch({ type: 'FETCH_ERROR', payload: err.message })
         }
-    };
+    }
 
     return (
         <div style={{
@@ -47,7 +47,7 @@ function App() {
 
             <CountryList countries={state.data} />
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
