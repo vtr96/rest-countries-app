@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-
+const cookie = require('cookie-parser')
 
 module.exports = (req, res, next) => {
 

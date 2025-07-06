@@ -1,0 +1,4 @@
+[2025-07-06 02:06:49] ERROR: Erro ao cadastrar usuário, email já existente
+[2025-07-06 19:56:23] ERROR: Erro ao cadastrar usuário, email já existente
+[2025-07-06 20:04:46] ERROR: Erro ao buscar usuário por ID: email is not defined
+[2025-07-06 20:07:36] ERROR: Erro ao buscar usuário por ID: Cannot access 'user' before initialization
