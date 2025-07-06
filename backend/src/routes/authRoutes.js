@@ -5,10 +5,18 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
+const rateLimit = require('express-rate-limit');
 require('dotenv').config()
 
-// Login
-router.post('/login', async (req, res) => {
+const loginLimiter = rateLimit({
+  windowMs: 60 * 1000, 
+  max: 5,
+  message: 'Muitas tentativas. Tente novamente mais tarde.',
+});
+
+
+//Login
+router.post('/users/login', loginLimiter, async (req, res) => {
   const { email, senha } = req.body;
 
   if (!email || typeof email !== 'string') {
@@ -43,7 +51,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Registro
-router.post('/register', async (req, res) => {
+router.post('/users/register', async (req, res) => {
   const { email, senha } = req.body;
 
   if (!email || typeof email !== 'string') {
@@ -91,7 +99,7 @@ router.get('/users/:id', authMiddleware, async (req, res) => {
 });
 
 //Buscar todos os usuários
-router.get('/users', authMiddleware, async (req, res) => {
+router.get('/users/list', authMiddleware, async (req, res) => {
   try {
     const users = await User.find().select('-senha');
     res.json(users);
