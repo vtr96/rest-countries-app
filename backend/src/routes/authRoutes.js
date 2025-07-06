@@ -43,7 +43,15 @@ router.post('/users/login', loginLimiter, async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
 
-    res.json({ token });
+
+    res
+        .cookie('token', token, {
+      httpOnly: false,
+      secure: true, // set to true if using HTTPS in production
+      sameSite: 'Lax',
+      maxAge: 60 * 60 * 1000 // 1 hour
+    })
+        .json({ token });
   } catch (erro) {
     console.error('Erro ao fazer login:', erro.message);
     res.status(500).json({ mensagem: 'Erro no servidor ao fazer login', erro: erro.message });
@@ -109,5 +117,8 @@ router.get('/users/list', authMiddleware, async (req, res) => {
   }
 });
 
-module.exports = router;
+router.get('/validate', authMiddleware, (req, res) => {
+  res.status(200).json({ authenticated: true });
+});
 
+module.exports = router;
