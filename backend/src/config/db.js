@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const conectarAoBanco = async () => {
   try {
     const uri = process.env.MONGO_URI
-    console.log(uri)
 
     await mongoose.connect(uri, {
       maxPoolSize: 10,

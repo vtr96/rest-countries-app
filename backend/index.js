@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()
 
 const authRoutes = require('./src/routes/authRoutes')
+const favoriteRoutes = require('./src/routes/favoriteRoutes');
 const cors = require('cors')
 const mongoSanitize = require('mongo-sanitize')
 const cookieParser = require('cookie-parser')
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
 
 
 app.use('/auth', authRoutes)
+app.use('/api', favoriteRoutes)
+
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {

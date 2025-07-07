@@ -1,11 +1,26 @@
 body {
-    background: linear-gradient(135deg, rgb(66, 66, 66), #000000);
+    background: linear-gradient(135deg, rgb(128, 139, 255), #ffffff);
     min-height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: monospace, sans-serif;
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.search-div {
+    color: rgb(66, 66, 66);
+    background-color: #424242;
+}
+
+.title {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.login-div .login-form {
+    font-family: monospace, sans-serif;
+    width: 15%;
 }
