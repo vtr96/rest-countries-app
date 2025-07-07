@@ -25,5 +25,15 @@ Simple React application to search for countries by name or region using the [RE
 ```bash
 git clone https://github.com/vtr96/rest-countries-app.git
 cd rest-countries-app
+```
+Install dependencies:
+```bash
 npm install
-npm start
+```
+Initialize backend server:
+```bash
+node backend/index.js
+```
+Initialize frontend SPA:
+```bash
+npm run dev

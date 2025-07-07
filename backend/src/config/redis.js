@@ -15,6 +15,6 @@ client.on('connect', () => {
   console.log('Conectado ao Redis');
 });
 
-client.connect(); 
+client.connect();
 
 module.exports = client;

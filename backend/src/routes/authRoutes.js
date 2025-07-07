@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const mongoose = require('mongoose');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('./middleware/authMiddleware');
 const router = express.Router();
 const rateLimit = require('express-rate-limit');
-const logger = require('../utils/logger');
-const redisClient = require('../utils/redis');
+const logger = require('../config/logger');
+const redisClient = require('../config/redis');
 require('dotenv').config();
 
 const loginLimiter = rateLimit({
@@ -153,7 +153,7 @@ router.get('/users/list', authMiddleware, async (req, res) => {
 
 //Validação de token
 router.get('/validate', authMiddleware, (req, res) => {
-  logger.info(`Token validado com sucesso para usuário ID: ${req.user.id}`);
+  //logger.info(`Token validado com sucesso para usuário ID: ${req.user.id}`); Debug later
   res.status(200).json({ authenticated: true });
 });
 

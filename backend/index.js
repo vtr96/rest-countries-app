@@ -1,5 +1,4 @@
 const express = require('express')
-const conectarAoBanco = require('./src/config/db') 
 require('dotenv').config()
 
 const authRoutes = require('./src/routes/authRoutes')
@@ -7,8 +6,13 @@ const cors = require('cors')
 const mongoSanitize = require('mongo-sanitize')
 const cookieParser = require('cookie-parser')
 
+const conectarAoBanco = require('./src/config/db')
+const criarUsuario = require('./criarUsuario')
+
 const app = express()
+
 conectarAoBanco()
+criarUsuario() //email: admin@admin | pw: admin123
 
 app.use(cors())
 app.use(express.json())

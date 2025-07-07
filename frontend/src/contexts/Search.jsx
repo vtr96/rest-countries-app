@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { countryReducer, initialState } from "../contexts/countryReducer";
+import { countryReducer, initialState } from "./countryReducer";
 import { SearchForm } from "../components/SearchForm";
 import { CountryList } from "../components/CountryList";
 
